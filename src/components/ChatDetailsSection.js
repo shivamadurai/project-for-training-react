@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Chatkit from '@pusher/chatkit';
 import ChatMessageSection from './ChatMessageSection';
 import ListUsersSection from './ListUsersSection';
@@ -74,7 +74,7 @@ class ChattingSection extends Component {
 
     render() {
         return (
-            <React.Fragment>
+            <Fragment>
                 <AppBar position="static">
                     <Toolbar>
                         <IconButton color="inherit" aria-label="Menu">
@@ -102,7 +102,7 @@ class ChattingSection extends Component {
                             users={this.state.currentRoom.users}
                     />
                 </Grid>
-            </React.Fragment>
+            </Fragment>
         )
     }
 }

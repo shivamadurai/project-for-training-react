@@ -12,7 +12,7 @@ class UsersList extends Component {
 
     margin = {
       marginTop: 30
-    }
+  }
 
   render() {
     if (this.props.users) {
