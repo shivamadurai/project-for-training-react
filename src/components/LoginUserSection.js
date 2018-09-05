@@ -1,6 +1,4 @@
-import React, { Component } from 'react'
-
-import { withStyles } from '@material-ui/core/styles';
+import React, { Component } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -16,6 +14,7 @@ const styles = theme => ({
       flexGrow: 1,
       maxWidth: 600,
       padding: theme.spacing.unit * 2,
+      marginBottom: 100
     },
     gridWrapper: {
         margin: 50
@@ -30,24 +29,13 @@ const styles = theme => ({
     }
 });
 
-class UsernameForm extends Component {
+class UserInputSection extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             username: '',
         }
-
-        this.onSubmit = this.onSubmit.bind(this);
-        this.onChange = this.onChange.bind(this);
-    }
-
-    userForm = {
-        padding: 50
-    }
-
-    buttonStyle = {
-        marginTop : 20
     }
 
     onSubmit(e) {
@@ -84,24 +72,16 @@ class UsernameForm extends Component {
                                     <Typography variant="title" color="inherit">
                                         <form>
                                             <Grid item xs={12} sm container>
-                                                <TextField
-                                                    id="name"
-                                                    label="Enter the User name"
-                                                    onChange={this.onChange}
-                                                    margin="normal"
-                                                    />
+                                            <TextField
+                                                id="name"
+                                                label="Enter the User name"
+                                                onChange={this.onChange.bind(this)}
+                                                margin="normal"
+                                            />
                                             </Grid>
-                                            {/* <Grid item xs={12} sm container>
-                                                 <TextField
-                                                    id="name"
-                                                    label="Enter the Password"
-                                                    margin="normal"
-                                                    />
-                                            </Grid> */}
-                                            
-                                            <Button style={this.buttonStyle} onClick={this.onSubmit} variant="outlined" color="primary" className={classes.button}>
+                                            <Button onClick={this.onSubmit.bind(this)} variant="outlined" color="primary" >
                                                 Submit
-                                            </Button>
+                                            </Button> 
                                         </form>
                                     </Typography>
                                     </Grid>
@@ -115,4 +95,4 @@ class UsernameForm extends Component {
     }
 }
 
-export default withStyles(styles)(UsernameForm);
+export default UserInputSection;
