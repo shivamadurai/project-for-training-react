@@ -1,45 +1,53 @@
-import React, { Component } from 'react';
+import React, {
+    Component
+} from 'react';
 import PropTypes from 'prop-types';
-import LoginUserSection from './components/LoginUserSection';
-import ChatDetailsSection from './components/ChatDetailsSection';
-import {connect} from 'react-redux';
+import {
+    connect
+} from 'react-redux';
+import Login from './components/Login';
+import Chat from './components/Chat';
 
 class App extends Component {
-  static propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    screen: PropTypes.string,
-  };
+    static propTypes = {
+        dispatch: PropTypes.func.isRequired,
+        screen: PropTypes.string,
+    };
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      username: ''
+    constructor(props) {
+        super();
+        const loggedInUser = localStorage.getItem('loggedInUser');
+        const roomid = localStorage.getItem('loggedInUserRoomId');
+        this.state = {
+            username: loggedInUser || '',
+            screen: loggedInUser ? 'Chat' : '',
+            roomId: roomid || '',
+        };
     }
-    this.getUser = this.getUser.bind(this)
-  }
 
-  getUser(username) {
-    this.props.dispatch({
-      type: 'GET_USER_NAME',
-      username
-    });
-  }
+    onSignIn(username) {
+        this.props.dispatch({
+            type: 'GET_USERNAME',
+            username,
+        });
+    }
 
-  render() {
-    const screen_ = this.props.screen || '';
-    const username_ = this.props.username || '';
-    if (screen_ === '') {
-      return <LoginUserSection onSubmit={this.getUser} />
+    render() {
+        const screen = this.props.screen || this.state.screen;
+        const username = this.props.username || this.state.username;
+        const roomid = this.props.roomId || this.state.roomId;
+        if (screen === '') {
+            return <Login onSubmit = {this.onSignIn.bind(this)}/>;
+        } else if (screen === 'Chat') {
+            return <Chat username = {username} roomId = {roomid}/>;
+        }
     }
-    if (screen_ === 'ChattingSection') {
-      return <ChatDetailsSection username={username_} />
-    }
-  }
 }
 
-const mapStateToProps = (state) => ({
-  screen: state.screen,
-  username : state.username
+const mapStateToProps = state => ({
+    screen: state.screen,
+    username: state.username,
+    roomId: state.roomId,
 });
 
-export default connect(mapStateToProps) (App)
+export default connect(mapStateToProps)(App);
