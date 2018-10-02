@@ -181,25 +181,26 @@ class Chat extends Component {
         });
     }
 
-    subscribeToMessage(currentUser, roomId) {
-        this.setState({
-            messages: []
+    messageCallBack() {
+        document.querySelectorAll('.messenger-box').forEach((elem) => {
+            elem.scrollTop = elem.scrollHeight - elem.clientHeight;
         });
+    }
+
+    subscribeToMessage(currentUser, roomId) {
         currentUser.subscribeToRoom({
-            roomId: roomId || 15481131,
+            roomId: this.state.roomId || 15481131,
             hooks: {
                 onNewMessage: message => {
                     this.setState({
                         messages: [...this.state.messages, message]
-                    });
+                    }, this.messageCallBack);
                 }
             },
-            messageLimit: 10
+            messageLimit: (this.state.messages.length ? 0 : 10)
         });
 
     }
-
-
 
     render() {
         const currentUser = this.props.currentUser || {};

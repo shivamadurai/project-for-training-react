@@ -26,11 +26,12 @@ const styles = {
 };
 
 class MessengerBox extends Component {
+
   render() {
     if (this.props.messages) {
       return (
         <div>
-          <ul style={styles.ul}>
+          <ul className="messenger-box" style={styles.ul}>
             {this.props.messages.map((message, index) => (
               <li style={styles.li} key={index}>
                 >
