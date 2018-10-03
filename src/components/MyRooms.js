@@ -15,7 +15,7 @@ const styles = {
     cursor: 'default',
   },
   active: {
-    background: '#fff',
+    background: '#e2e2e2',
     cursor: 'default',
   },
 };
@@ -31,7 +31,7 @@ class MyRooms extends Component {
     if (this.props.myRooms) {
       return (
           <Fragment>
-            <h2>Room List</h2>
+            <h2>Room List => (Click on list to change the room)</h2>
             <List component="nav" style={styles.wrapper}>
                 {this.props.myRooms.map((room, index) => {
                 if (this.props.currentRoomId === room.id) {

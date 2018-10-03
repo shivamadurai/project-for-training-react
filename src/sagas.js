@@ -7,7 +7,8 @@ import {
     getUserName,
     getCurrentUser,
     userMessage,
-    newChatRoom
+    newChatRoom,
+    addNewUser
 } from './services';
 
 function* getUserNameSaga(action) {
@@ -42,9 +43,15 @@ function* newChatRoomSaga(action) {
     });
 }
 
+function* addNewUserSaga(action) {
+  const user = yield call(addNewUser, action);
+  yield put({ type: 'SET_NEW_USER', user });
+}
+
 export default function* sagas() {
     yield takeLatest('GET_USERNAME', getUserNameSaga);
     yield takeLatest('GET_CURRENT_USER', getCurrentUserSaga);
     yield takeLatest('GET_MESSAGE', userMessageSaga);
     yield takeLatest('GET_NEW_ROOM', newChatRoomSaga);
+    yield takeLatest('GET_NEW_USER', addNewUserSaga);
 }

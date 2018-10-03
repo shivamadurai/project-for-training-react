@@ -56,3 +56,15 @@ export function newChatRoom(action) {
                 console.error(`Error in newChatRoom: ${err}`);
             }));
 }
+
+export function addNewUser(action) {
+  return action.currentUser.addUserToRoom({
+      userId: action.user,
+      roomId: action.roomId,
+  }).then(() => {
+      console.log(`Added ${action.user}`);
+    })
+    .catch((err) => {
+      console.log(`Error adding ${action.user}`);
+    });
+}

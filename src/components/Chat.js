@@ -110,7 +110,7 @@ class Chat extends Component {
             update: true,
         });
 
-        this.loadMyRoomMessages();
+        //this.loadMyRoomMessages();
     }
 
     handleOpen() {
@@ -171,6 +171,7 @@ class Chat extends Component {
         this.setState({
             update: true,
             roomId: id,
+            messages: []
         });
     }
 
@@ -192,9 +193,11 @@ class Chat extends Component {
             roomId: this.state.roomId || 15481131,
             hooks: {
                 onNewMessage: message => {
-                    this.setState({
-                        messages: [...this.state.messages, message]
-                    }, this.messageCallBack);
+                    if (this.state.roomId === message.roomId) {
+                        this.setState({
+                            messages: [...this.state.messages, message]
+                        }, this.messageCallBack);
+                    }
                 }
             },
             messageLimit: (this.state.messages.length ? 0 : 10)
@@ -231,6 +234,11 @@ class Chat extends Component {
                     <h2>Action</h2>
                     <Button variant="contained" onClick={this.handleOpen.bind(this)} aria-label="Create Room">
                         Create Room
+                    </Button>
+                    <br />
+
+                    <Button style={styles.userModal} variant="contained" onClick={this.handleOpenUser.bind(this)} aria-label="Add User">
+                            Add User into Room
                     </Button>
                     <br />
 
